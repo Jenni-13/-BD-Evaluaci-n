@@ -1,0 +1,53 @@
+﻿Jennifer Baltazar Rico 
+Reporte-Gradient Boosting
+1. Justificación del algoritmo
+Se eligió Gradient Boosting Classifier (GBC) porque:
+* Es un algoritmo de ensemble que combina múltiples árboles de decisión débiles para formar un modelo fuerte.
+* Maneja datos numéricos y categóricos, tolera valores faltantes y ofrece buena generalización.
+* Permite optimización de hiperparámetros, lo que ayuda a mejorar el desempeño frente a un árbol simple.
+* Es adecuado para problemas de clasificación binaria, como predecir un objetivo “sí/no” en el dataset de béisbol.
+2. Descripción del diseño del modelo
+El pipeline del modelo incluye los siguientes pasos:
+1. Preprocesamiento:
+
+   * Columnas numéricas: se imputan con la mediana y se escalan con StandardScaler.
+   * Columnas categóricas: se imputan con la moda y se transforman con OneHotEncoder.
+
+      2. Clasificador:
+
+         * GradientBoostingClassifier con parámetros ajustables: número de estimadores (n_estimators), tasa de aprendizaje (learning_rate), profundidad máxima (max_depth) y proporción de submuestras (subsample).
+
+            3. Optimización de hiperparámetros:
+
+               * Se utilizó RandomizedSearchCV con validación cruzada estratificada de 5 folds para encontrar la mejor combinación de hiperparámetros según la métrica ROC-AUC.
+3. Evaluación y optimización del modelo
+Métricas en el conjunto de prueba (Test):
+Métrica
+	Valor
+	Accuracy
+	0.987
+	Precision
+	0.988
+	Recall
+	0.987
+	F1 Score
+	0.987
+	ROC-AUC
+	0.995
+	Interpretación:
+               * El modelo tiene alta capacidad predictiva y balance entre precisión y sensibilidad.
+               * La validación cruzada asegura que el modelo generaliza bien a datos no vistos.
+5. Gráfica personalizada e interpretación
+               1. Matriz de confusión
+
+                  * Permite visualizar los aciertos y errores del modelo por clase.
+                  * La diagonal principal representa predicciones correctas.
+                  2. Curva ROC
+                  * Evalúa la capacidad del modelo para distinguir entre clases.
+                  * Un área bajo la curva cercana a 1 indica excelente desempeño.
+                  3. Curva Precisión-Recall
+                  * Muestra la relación entre precisión y recall.
+                  * Útil para datasets desbalanceados y para elegir umbrales de decisión.
+Interpretación general de las gráficas:
+                  * El modelo clasifica correctamente la mayoría de los equipos.
+                  * No hay falsos positivos ni negativos significativos, lo que confirma la robustez del Gradient Boosting para este dataset.

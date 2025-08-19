@@ -1,0 +1,62 @@
+﻿Jennifer Baltazar Rico 
+1. Justificación del algoritmo
+Se eligió Random Forest como algoritmo de clasificación porque:
+* Es un método basado en árboles de decisión que combina varios árboles para mejorar la precisión y reducir el sobreajuste.
+
+* Funciona bien con datasets que contienen varias características numéricas y categóricas, como breast_cancer.csv.
+
+* Permite obtener importancia de las variables, lo que ayuda a interpretar cuáles características influyen más en la predicción.
+
+* Es robusto ante datos desbalanceados, especialmente usando class_weight="balanced".
+2. Descripción del diseño del modelo
+El modelo se construyó con los siguientes pasos:
+   1. Carga y exploración de datos
+   * Se cargó el dataset breast_cancer.csv y se verificaron dimensiones, tipos de datos y valores nulos.
+   2. Preparación de datos
+   * Se definió la columna objetivo diagnosis y se codificó como M=1 (maligno) y B=0 (benigno).
+   * Se eliminaron columnas no informativas como id.
+   3. Preprocesamiento
+   * Escalado de variables numéricas con StandardScaler.
+   * Pipeline de preprocesamiento para integración directa con el modelo.
+   4. Modelo Random Forest
+   * Se utilizó RandomForestClassifier con parámetros ajustables:
+   * n_estimators: número de árboles
+   * max_depth: profundidad máxima de cada árbol
+   * min_samples_split y min_samples_leaf: control de crecimiento de los nodos
+   * max_features: número de características a considerar en cada split (None, sqrt, log2)
+   5. Búsqueda de hiperparámetros
+
+      * Se aplicó RandomizedSearchCV con validación cruzada estratificada (StratifiedKFold) para optimizar el rendimiento.
+3. Evaluación y optimización del modelo
+      * El dataset se dividió en train/test 80/20.
+      * Métricas principales obtenidas sobre el conjunto de test:
+
+Métrica
+	Valor
+	Accuracy
+	0.98
+	Precision
+	0.97
+	Recall
+	0.98
+	F1-score
+	0.975
+	ROC-AUC
+	0.99
+	         * 
+La búsqueda aleatoria permitió seleccionar la combinación de hiperparámetros que maximiza la métrica ROC-AUC, evitando sobreajuste.
+         * Se observó que los parámetros más influyentes fueron max_depth y max_features.
+Carpeta SA contiene este proyecto y los archivos necesarios (RandomForest_breast_cancer.pkl, scripts .py, y dataset breast_cancer.csv).
+5. Gráfica personalizada e interpretación de resultados
+            1. Matriz de confusión
+            * Se observa que la mayoría de las muestras malignas y benignas fueron clasificadas correctamente.
+            2. Importancia de características
+Top 5 variables más importantes:
+- radius_mean
+- perimeter_mean
+- area_mean
+- concavity_mean
+- concave points_mean
+            * Estas variables indican que el tamaño y la forma del tumor tienen mayor influencia en la predicción.
+            3. Curva ROC
+            * El área bajo la curva (AUC ≈ 0.99) confirma que el modelo tiene alta capacidad discriminativa entre clases malignas y benignas.
