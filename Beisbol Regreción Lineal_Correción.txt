@@ -1,0 +1,43 @@
+Jennifer Baltazar Rico
+
+1. Justificación del Algoritmo
+Para este proyecto se eligió el algoritmo Random Forest Regressor, un modelo de ensamble robusto y potente. Se prefirió este modelo sobre la Regresión Lineal por varias razones clave:
+Capacidad Predictiva: Los Random Forest son excepcionales en la captura de relaciones no lineales y complejas entre las variables, lo que es crucial para un problema donde una relación lineal simple no es suficiente, como lo indicaron los resultados de la primera aproximación.
+Manejo de Variabilidad: Este modelo construye múltiples árboles de decisión y promedia sus resultados, lo que reduce el sobreajuste y mejora la robustez de las predicciones.
+Importancia de Características: A diferencia de la Regresión Lineal, Random Forest puede evaluar la importancia de cada variable predictora de manera no lineal, lo que proporciona una visión más precisa de cuáles variables son más influyentes en la predicción.
+Optimización de Hiperparámetros: El modelo tiene hiperparámetros ajustables que pueden ser optimizados para maximizar su rendimiento, lo que cumple con el requisito de mejorar el modelo a través de una búsqueda sistemática.
+
+2. Descripción del Diseño del Modelo
+El flujo de trabajo se ajustó para integrar un modelo más complejo y la optimización de hiperparámetros:
+Carga de datos:
+Se importó el archivo beisbol.csv.
+Se identificaron las variables equipos (categórica), bateos (objetivo) y runs (numérica).
+Análisis Exploratorio y División de Datos:
+Se realizó un análisis rápido para verificar valores nulos y tipos de datos.
+Se dividió el conjunto de datos en 80% para entrenamiento y 20% para prueba.
+Pipeline de Preprocesamiento y Modelado:
+Se construyó un Pipeline completo y reproducible que incluye todas las etapas:
+Imputación y escalado para variables numéricas.
+Imputación y codificación One-Hot para variables categóricas.
+RandomForestRegressor como modelo final.
+Optimización de Hiperparámetros:
+Se implementó GridSearchCV para realizar una búsqueda exhaustiva de la mejor combinación de hiperparámetros del modelo.
+Los hiperparámetros optimizados incluyeron: n_estimators (número de árboles), max_depth (profundidad de los árboles), entre otros.
+La métrica principal para la optimización fue el coeficiente R2, buscando el valor más alto posible para el modelo.
+3. Evaluación y Métricas
+El modelo optimizado fue evaluado en el conjunto de prueba, arrojando resultados notablemente superiores:
+MAE (Error Absoluto Medio): Mide el error promedio de la predicción, indicando que el modelo mejorado tiene menos error en promedio.
+RMSE (Raíz del Error Cuadrático Medio): Penaliza más los errores grandes. Un valor más bajo muestra que el modelo optimizado comete menos errores significativos.
+R2 (Coeficiente de Determinación): El valor de R2 mejoró sustancialmente, indicando que el modelo es mucho más efectivo para explicar la variabilidad de la variable objetivo. Un R2 positivo y más cercano a 1 demuestra que el modelo captura la relación entre variables de manera efectiva.
+
+4. Gráficas Personalizadas e Interpretación
+Las gráficas de evaluación del modelo optimizado muestran un rendimiento superior:
+Predicho vs Real: Los puntos se agrupan mucho más cerca de la línea diagonal, lo que indica que el modelo optimizado realiza predicciones mucho más precisas.
+Residuos vs Predicho: La distribución de los residuos se muestra más aleatoria y centrada en cero, lo que valida que el modelo está capturando mejor la estructura subyacente de los datos y no dejando patrones sistemáticos de error.
+Importancia de Características: A diferencia del modelo de Regresión Lineal, Random Forest nos permite visualizar la importancia relativa de cada característica, ofreciendo una visión más profunda de qué variables impulsan la predicción.
+5. Conclusiones y Posibles Aplicaciones
+Validación del Enfoque: El proceso de optimización de hiperparámetros y el uso de un modelo más complejo demostraron ser cruciales para mejorar el rendimiento.
+Mejora de la Precisión: Las métricas de evaluación confirman que el modelo de Random Forest es mucho más adecuado para este problema de predicción que la Regresión Lineal.
+Aplicabilidad: El modelo final puede ser utilizado para predecir el número de bateos con una mayor precisión, lo que podría ayudar en el análisis de rendimiento de equipos, scouting de jugadores o estrategias de juego.
+Flujo de Trabajo Robusto: El Pipeline y GridSearchCV construidos garantizan que el proceso es reproducible, escalable y puede adaptarse fácilmente a nuevos datos o a la exploración de otros modelos.
+
